@@ -10,7 +10,7 @@ from dotenv import dotenv_values
 import json
 secret = dotenv_values(".env")
 app = Flask(__name__)
-connection = f"mongodb+srv://adrin_sanchez:{secret["DB_PASSWORD"]}@cluster0.6wwbb.mongodb.net/"
+connection = f'mongodb+srv://adrin_sanchez:{secret["DB_PASSWORD"]}@cluster0.6wwbb.mongodb.net/'
 client = MongoClient(connection)
 db = client.scrapCollection
 
