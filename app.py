@@ -37,4 +37,4 @@ def run_script():
     return render_template("trends.html",insertedTrends = trends, insertedDate = date, insertedtime = time, ip = ipAddress, rawData = highlightedData)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000)
