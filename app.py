@@ -1,4 +1,5 @@
 import re
+import os
 from flask import Flask, render_template
 from pymongo import MongoClient
 from db import insert
@@ -6,11 +7,12 @@ from bson.objectid import ObjectId
 from pygments import highlight
 from pygments.lexers import JsonLexer
 from pygments.formatters import HtmlFormatter
-from dotenv import dotenv_values
+from dotenv import load_dotenv
 import json
-secret = dotenv_values(".env")
+load_dotenv()
+DB_PASSWORD = os.getenv("DB_PASSWORD")
 app = Flask(__name__)
-connection = f'mongodb+srv://adrin_sanchez:{secret["DB_PASSWORD"]}@cluster0.6wwbb.mongodb.net/'
+connection = f'mongodb+srv://adrin_sanchez:{DB_PASSWORD}@cluster0.6wwbb.mongodb.net/'
 client = MongoClient(connection)
 db = client.scrapCollection
 

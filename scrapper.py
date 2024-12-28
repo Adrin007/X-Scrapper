@@ -1,15 +1,18 @@
 from selenium import webdriver
 import chromedriver_binary
-from dotenv import dotenv_values
+from dotenv import load_dotenv
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import os
 import ipPicker
 import random
 import time
+load_dotenv()
 def scrapper():
     website = 'https://AdrinSanchez:Adrin_billnr01@x.com/i/flow/login'
-    secret = dotenv_values(".env")
+    X_USERNAME = os.getenv("X_USERNAME")
+    X_PASSWORD = os.getenv("X_PASSWORD")
     # path = 'D:/Stir-Intern-Assignment/chromedriver-win64/chromedriver.exe'
     # service = Service(path)
     proxy = ipPicker.pick()
@@ -18,7 +21,7 @@ def scrapper():
         driver.get(website)
         usernameField = WebDriverWait(driver, 20).until(
             EC.presence_of_element_located((By.NAME, 'text')))
-        usernameField.send_keys(secret["X_USERNAME"])
+        usernameField.send_keys(X_USERNAME)
         buttons = driver.find_elements(By.TAG_NAME,"button")
         buttons[3].click()
         
@@ -26,7 +29,7 @@ def scrapper():
             EC.presence_of_element_located((By.NAME,'password'))
         )
         if passwordField:
-            passwordField.send_keys(secret["X_PASSWORD"])
+            passwordField.send_keys(X_PASSWORD)
             buttons = driver.find_elements(By.TAG_NAME,"button")
             buttons[4].click()
         else:
