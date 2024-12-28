@@ -1,8 +1,10 @@
 from pymongo import MongoClient
 from scrapper import scrapper
-from dotenv import dotenv_values
-secret = dotenv_values(".env")
-connection = f'mongodb+srv://adrin_sanchez:{secret["DB_PASSWORD"]}@cluster0.6wwbb.mongodb.net/'
+import os
+from dotenv import load_dotenv
+load_dotenv()
+DB_PASSWORD = os.getenv("DB_PASSWORD")
+connection = f'mongodb+srv://adrin_sanchez:{DB_PASSWORD}@cluster0.6wwbb.mongodb.net/'
 from datetime import datetime, timedelta, timezone
 client = MongoClient(connection)
 db = client.scrapCollection
