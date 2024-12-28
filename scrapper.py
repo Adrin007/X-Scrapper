@@ -56,7 +56,7 @@ def scrapper():
         print(f"Error : {err}")
     finally:
         driver.close()
-        print("Session Terminated.")
+        print("Session Terminated")
     return trends,proxy
 
 def main():
