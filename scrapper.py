@@ -15,11 +15,7 @@ def scrapper():
     X_USERNAME = os.getenv("X_USERNAME")
     X_PASSWORD = os.getenv("X_PASSWORD")
     proxy = ipPicker.pick()
-    chrome_options = Options()
-    chrome_options.add_argument("--headless") 
-    chrome_options.add_argument("--no-sandbox")  
-    chrome_options.add_argument("--disable-dev-shm-usage") 
-    driver = webdriver.Chrome(options=chrome_options)
+    driver = webdriver.Chrome()
     try:
         driver.get(website)
         usernameField = WebDriverWait(driver, 20).until(
