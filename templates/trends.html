@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trends</title>
+</head>
+<body style="margin: 0; height: 100%; font-family: 'Courier New', Courier, monospace; background-color: black; color: white;">
+   <div style="display: flex; flex-direction: column; justify-content: center;align-items: center;">
+        <div>
+            <h3 style="font-size: x-large; font-weight: 700; margin-top: 30px;">These are the most happening topics as on : {{insertedDate}} | {{insertedtime}}</h3>
+        </div>
+        <div style="width: 50%;">
+            <table style="width:100%; border-collapse: collapse; font-size: 16px; background-color: #767676; border: 1px solid #5b5b5b; margin-top: 15px;">
+                <thead>
+                    <tr style="background-color: #5b5b5b; text-align: left;">
+                        <th style="padding: 8px 12px;">Trending Topics</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for trend in insertedTrends %}
+                        <tr style="cursor: pointer; background-color: #000000;padding: 5px;" 
+                            onmouseover="this.style.backgroundColor='#3C3D37';" 
+                            onmouseout="this.style.backgroundColor='#000000'">
+                            <td style="padding: 12px 12px; border-bottom: 1px solid #5b5b5b; color: white;">{{ trend }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <h3 style="align-items: start;">Current IP Address : {{ip}}</h3>
+            <div style="background-color: #000; color: #fff; padding: 20px; border-radius: 15px; overflow-x: auto;border: 2px solid white;">
+                <div style="font-family: 'Courier New', Courier, monospace; white-space: pre-wrap; word-wrap: break-word; color: #e0e0e0; margin-top: -220px; margin-bottom: -20px;">{{rawData | safe}}</div>
+            </div>
+        </div>
+        <form action="/trends" method="POST" style="margin-top: 30px; margin-bottom: 30px;">
+            <button type="submit" style="background-color: blueviolet; padding: 13px; border-radius: 15px; color: aliceblue; border: none; cursor: pointer; font-family: 'Times New Roman', Times, serif;">Run Selenium Script</button>
+        </form>
+   </div>
+</body>
+</html>
