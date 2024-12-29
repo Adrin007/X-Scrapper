@@ -4,12 +4,21 @@ WORKDIR /app
 
 COPY . /app
 
-RUN pip install --trusted-host pypi.python.org -r requirements.txt
-
-RUN apt-get update && apt-get install -y wget unzip &&  \
+# Install dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    wget unzip curl libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libxcomposite1 libxrandr2 \
+    libxss1 libxcursor1 libxi6 libxtst6 libpangocairo-1.0-0 libpango-1.0-0 fonts-liberation \
+    libappindicator3-1 libasound2 xdg-utils libgbm1 libu2f-udev libvulkan1 && \
     wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
     apt install -y ./google-chrome-stable_current_amd64.deb && \
-    rm google-chrome-stable_current_amd64 && \
-    apt-get clean
+    rm -f google-chrome-stable_current_amd64.deb && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
-CMD ["python","app.py"]
+# Install Python dependencies
+RUN pip install --no-cache-dir --trusted-host pypi.python.org -r requirements.txt
+
+# Set environment variables
+ENV PYTHONUNBUFFERED=1
+
+# Run the application
+CMD ["python", "app.py"]
