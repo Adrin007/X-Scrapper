@@ -22,8 +22,7 @@ def scrapper():
     chrome_options.add_argument("--no-sandbox") 
     chrome_options.add_argument("--disable-dev-shm-usage") 
     chrome_options.add_argument("--disable-gpu")
-    chrome_options.binary_location = "/usr/bin/google-chrome"
-    driver = webdriver.Chrome(service= Service(ChromeDriverManager().install()),options=chrome_options)
+    driver = webdriver.Chrome(service= Service(ChromeDriverManager().install()))
     try:
         driver.get(website)
         usernameField = WebDriverWait(driver, 20).until(

@@ -4,7 +4,6 @@ WORKDIR /app
 
 COPY . /app
 
-# Install dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     wget unzip curl libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libxcomposite1 libxrandr2 \
     libxss1 libxcursor1 libxi6 libxtst6 libpangocairo-1.0-0 libpango-1.0-0 fonts-liberation \
@@ -14,11 +13,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     rm -f google-chrome-stable_current_amd64.deb && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Install Python dependencies
 RUN pip install --no-cache-dir --trusted-host pypi.python.org -r requirements.txt
 
-# Set environment variables
 ENV PYTHONUNBUFFERED=1
 
-# Run the application
 CMD ["python", "app.py"]
