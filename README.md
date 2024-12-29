@@ -79,6 +79,6 @@ X-Scrapper/ ├── app.py # Main Flask application ├── db.py # Database
 
 ## Local Deployment Sample
 
-![Alt text](c:\Users\DELL\Downloads\Telegram Desktop\x-scrapper.jpg)
+![Alt text](assets/x-scrapper.jpg)
 
-![Alt text](c:\Users\DELL\Downloads\Telegram Desktop\x-Scrapper-trends.jpg)
+![Alt text](assets/x-Scrapper-trends.jpg)
