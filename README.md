@@ -75,7 +75,9 @@ X-Scrapper is a web scraping tool designed to extract trending topics from X (fo
 
 ## Project Structure
 
+    ```tree
     X-Scrapper/ ├── app.py # Main Flask application ├── db.py # Database interaction script ├── ipPicker.py # Proxy selection utility ├── requirements.txt # Python dependencies ├── Dockerfile # Docker configuration ├── templates/ # HTML templates │ ├── index.html # Main UI ├── static/ # Static files (CSS, JS) └── .env # Environment variables
+    ```
 
 ## Local Deployment Sample
 
