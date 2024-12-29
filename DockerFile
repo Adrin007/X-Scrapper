@@ -1,48 +1,20 @@
-# Use the Ubuntu 22.04 base image
-FROM ubuntu:22.04
+FROM python:3.12.2
 
-# Add Python 3.8 to the image
-FROM python:3.10
-
-# Update package lists for the Ubuntu system
-RUN apt-get update
-
-# Install the 'unzip' package
-RUN apt install unzip
-
-# Copy the Chrome Debian package to the image
-COPY chrome_114_amd64.deb ./
-
-# Install the Chrome Debian package
-RUN apt install ./chrome_114_amd64.deb -y
-
-# Download ChromeDriver binary version 114.0.5735.90 for Linux
-RUN wget https://chromedriver.storage.googleapis.com/114.0.5735.90/chromedriver_linux64.zip
-
-# Unzip the downloaded ChromeDriver binary
-RUN unzip chromedriver_linux64.zip
-
-# Move the ChromeDriver binary to /usr/bin
-RUN mv chromedriver /usr/bin/chromedriver
-
-# Print the version of Google Chrome installed
-RUN google-chrome --version
-
-# Set the working directory inside the image to /app
 WORKDIR /app
 
-# Copy the requirements.txt file to /app
-COPY requirements.txt /app/requirements.txt
+COPY . /app
 
-# Install Python dependencies listed in requirements.txt
-RUN pip install -r /app/requirements.txt
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    wget unzip curl libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libxcomposite1 libxrandr2 \
+    libxss1 libxcursor1 libxi6 libxtst6 libpangocairo-1.0-0 libpango-1.0-0 fonts-liberation \
+    libappindicator3-1 libasound2 xdg-utils libgbm1 libu2f-udev libvulkan1 && \
+    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
+    apt install -y ./google-chrome-stable_current_amd64.deb && \
+    rm -f google-chrome-stable_current_amd64.deb && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Copy the Python script 'app.py' to /app
-COPY app.py /app/
+RUN pip install --no-cache-dir --trusted-host pypi.python.org -r requirements.txt
 
-# Declare a volume at the specified path for persistent data storage
-VOLUME <Your working directory path>
-# (eg:-VOLUME /media/projects/Test)
+ENV PYTHONUNBUFFERED=1
 
-# Specify the default command to execute when the container starts
-ENTRYPOINT [ "python", "app.py"]
+CMD ["python", "app.py"]
